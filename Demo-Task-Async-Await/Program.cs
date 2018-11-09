@@ -12,7 +12,7 @@ namespace Demo_Task_Async_Await
         static Task<int> ReadFile()// Tạo ra 1 Task, và chạy nó rồi trả ra 1 Task, Task đó phải start
         {
             Task<int> result = new Task<int>(() => File.ReadAllBytes(@"D:\bin.txt").Length);
-            //Sử dụng lệnh bên dưới để chạy task
+            //Sử dụng lệnh bên dưới để chạy task=> nên sử dụng Task.Run()
             //Task<int> result = Task<int>.Run(() => File.ReadAllBytes(@"D:\bin.txt").Length);
             result.Start();//Chạy task, không chạy nó sẽ không có kết quả trả về
            
