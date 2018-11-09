@@ -18,23 +18,28 @@ namespace Demo_Task_Async_Await
            
             return result;
         }
-        static async Task ShowLenghOfFile()
+        static async Task ShowLenghOfFile()//async thông báo hàm này chạy bất đồng bộ 
+            //nếu gọi hàm này các câu lệnh trên await sẽ được chạy trước, gặp câu lệnh await 
+            //nghĩa là sau nó có 1 task(Task này chạy mất nhiều thời gian, bắt buộc là 1 Task)
+            //Các hàm gọi nó sẽ không chờ nó chạy hết hàm (từ await trở xuống), mà sẽ chạy tiếp các câu lệnh phía
+            //sau của hàm gọi
         {
-            Console.WriteLine("Start 1");
+            Console.WriteLine("Start ShowLenghOfFile");
             int lengh = await ReadFile();//s Từ khóa await cho phép chờ đợi kết quả để thực hiện các câu lệnh phía sau nó
             //và ở đâu gọi tới hàm này sẽ cho phép nó chạy tiếp các câu lệnh phía sau mà không phải chờ hàm này thực hiện xong
             //
-            Console.WriteLine("Start 3 \n"+ lengh);
+            Console.WriteLine("End ShowLenghOfFile \n" + lengh);
         }
-        static async Task CallTaskAsync()
+        static void Call()
         {
-            await ShowLenghOfFile();
+            ShowLenghOfFile();
+            Console.WriteLine("End Method Call");
         }
         //
         static void Main(string[] args)
         {
-            ShowLenghOfFile();
-            Console.WriteLine("Start 2");
+            Call();
+            Console.WriteLine("End Method Main");
             Console.ReadKey();
         }
     }
